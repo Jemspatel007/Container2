@@ -3,15 +3,15 @@ options:
 
 steps:
 
-  # Setup authenticator for kubectl (Uncomment if needed)
-  - id: Authenticate GKE 
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        echo "Step 1: Getting cluster credentials..."
-        gcloud container clusters get-credentials k8s-csci-5409-cluster --zone us-east1-b --project ${PROJECT_ID}
+#  # Setup authenticator for kubectl (Uncomment if needed)
+#  - id: Authenticate GKE
+#    name: 'gcr.io/cloud-builders/gcloud'
+#    entrypoint: 'bash'
+#    args:
+#      - '-c'
+#      - |
+#        echo "Step 1: Getting cluster credentials..."
+#        gcloud container clusters get-credentials k8s-csci-5409-cluster --zone us-east1-b --project ${PROJECT_ID}
 
   # Docker Build
   - id: Build
@@ -35,17 +35,17 @@ steps:
         docker push --all-tags us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2
         echo "Image pushed successfully."
 
-  # Updating image in cluster
-  - id: Update GKE
-    name: "gcr.io/cloud-builders/kubectl"
-    entrypoint: "bash"
-    args:
-      - "-c"
-      - |
-        echo "Step 4: Updating pod by setting new image...."
-        echo "${PROJECT_ID}"
-        kubectl set image deployment/container2-deployment k8s-container1=us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA}
-        echo "Image updated successfully."
-    env:
-      - 'CLOUDSDK_COMPUTE_REGION=us-east1-b'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=k8s-csci-5409-cluster'
+#  # Updating image in cluster
+#  - id: Update GKE
+#    name: "gcr.io/cloud-builders/kubectl"
+#    entrypoint: "bash"
+#    args:
+#      - "-c"
+#      - |
+#        echo "Step 4: Updating pod by setting new image...."
+#        echo "${PROJECT_ID}"
+#        kubectl set image deployment/container2-deployment k8s-container1=us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA}
+#        echo "Image updated successfully."
+#    env:
+#      - 'CLOUDSDK_COMPUTE_REGION=us-east1-b'
+#      - 'CLOUDSDK_CONTAINER_CLUSTER=k8s-csci-5409-cluster'

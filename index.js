@@ -8,6 +8,8 @@ dotenv.config();
 
 app.post("/parser", parseCSV);
 
+console.log("CI Testing");
+
 app.listen(2000, () => {
     console.log(`Listening on port ${2000}...!`);
 });
