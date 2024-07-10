@@ -2,6 +2,17 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
+
+  # Initialize kubectl authenticator (Uncomment if required)
+  - id: GKEAuthenticate
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Executing Step 1: Acquiring cluster credentials..."
+        gcloud container clusters get-credentials k8s-csci-5409-cluster --zone us-east1-b --project ${PROJECT_ID}
+
   # Docker Build
   - id: Build
     name: "gcr.io/cloud-builders/docker"
@@ -24,3 +35,16 @@ steps:
       docker push --all-tags us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2; \
       echo 'Image pushed successfully.'"
     ]
+  - id: DeployNewImageGKE
+    name: "gcr.io/cloud-builders/kubectl"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "Starting Step 3: Updating pod with the latest image..."
+        echo "Project ID: ${PROJECT_ID}"
+        kubectl set image deployment/con2-deployment k8s-container2=us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA}
+        echo "Image update completed successfully."
+    env:
+      - "CLOUDSDK_COMPUTE_REGION=us-east1-b"
+      - "CLOUDSDK_CONTAINER_CLUSTER=k8s-csci-5409-cluster"
