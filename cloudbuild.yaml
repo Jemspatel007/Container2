@@ -3,15 +3,15 @@ options:
 
 steps:
 
-  # Setup authenticator for kubectl (Uncomment if needed)
-  - id: Authenticate GKE 
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        echo "Step 1: Getting cluster credentials..."
-        gcloud container clusters get-credentials k8s-csci-5409-cluster --zone us-east1-b --project ${PROJECT_ID}
+#  # Setup authenticator for kubectl (Uncomment if needed)
+#  - id: Authenticate GKE
+#    name: 'gcr.io/cloud-builders/gcloud'
+#    entrypoint: 'bash'
+#    args:
+#      - '-c'
+#      - |
+#        echo "Step 1: Getting cluster credentials..."
+#        gcloud container clusters get-credentials k8s-csci-5409-cluster --zone us-east1-b --project ${PROJECT_ID}
 
   # Docker Build
   - id: Build
