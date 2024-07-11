@@ -20,8 +20,8 @@ steps:
     args: [
       "-c",
       "echo 'Step 2: Building Docker image...'; \
-      docker build -t us-central1-c-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA} \
-                   -t us-central1-c-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:latest .; \
+      docker build -t us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA} \
+                   -t us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:latest .; \
       echo 'Docker image built successfully.'"
     ]
 
@@ -32,7 +32,7 @@ steps:
     args: [
       "-c",
       "echo 'Step 3: Pushing Docker image...'; \
-      docker push --all-tags us-central1-c-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2; \
+      docker push --all-tags us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2; \
       echo 'Image pushed successfully.'"
     ]
   - id: DeployNewImageGKE
