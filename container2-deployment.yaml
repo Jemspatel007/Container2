@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: con2-deployment
+  labels:
+    app: k8s-container2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-container2
+  template:
+    metadata:
+      labels:
+        app: k8s-container2
+    spec:
+      containers:
+        - name: k8s-container2
+          image: jems007patel/container2
+          ports:
+            - containerPort: 2000
+          env:
+            - name: PORT
+              value: "2000"
+            - name: FILE_DIRECTORY
+              value: "/jems_PV_dir"
+          volumeMounts:
+            - mountPath: /jems_PV_dir
+              name: persistent-volume
+      volumes:
+        - name: persistent-volume
+          persistentVolumeClaim:
+            claimName: k8s-assignment-pv-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: container2-service
+spec:
+  selector:
+    app: k8s-container2
+  ports:
+    - protocol: TCP
+      port: 6000
+      targetPort: 2000
