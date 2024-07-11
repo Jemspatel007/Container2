@@ -11,7 +11,7 @@ steps:
       - '-c'
       - |
         echo "Executing Step 1: Acquiring cluster credentials..."
-        gcloud container clusters get-credentials k8s-assignment-testing --zone us-central1-c --project cloud-428821
+        gcloud container clusters get-credentials k8 --zone us-central1-c --project cloud-428821
 
   # Docker Build
   - id: Build
