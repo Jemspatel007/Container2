@@ -44,7 +44,7 @@ steps:
         echo "Starting Step 3: Updating pod with the latest image..."
         echo "Project ID: ${PROJECT_ID}"
         kubectl get deployment con2-deployment || kubectl apply -f container2-deployment.yaml
-        kubectl set image deployment/con2-deployment k8s-container2=us-central1-c-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA}
+        kubectl set image deployment/con2-deployment k8s-container2=us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA}
         echo "Image update completed successfully."
     env:
       - "CLOUDSDK_COMPUTE_REGION=us-central1-c"
