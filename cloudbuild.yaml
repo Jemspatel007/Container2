@@ -11,7 +11,7 @@ steps:
       - '-c'
       - |
         echo "Executing Step 1: Acquiring cluster credentials..."
-        gcloud container clusters get-credentials k8s --zone us-central1-c --project cloud-428821
+        gcloud container clusters get-credentials k8s --zone us-central1-c-c --project cloud-428821
 
   # Docker Build
   - id: Build
@@ -20,8 +20,8 @@ steps:
     args: [
       "-c",
       "echo 'Step 2: Building Docker image...'; \
-      docker build -t us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA} \
-                   -t us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:latest .; \
+      docker build -t us-central1-c-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA} \
+                   -t us-central1-c-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:latest .; \
       echo 'Docker image built successfully.'"
     ]
 
@@ -32,7 +32,7 @@ steps:
     args: [
       "-c",
       "echo 'Step 3: Pushing Docker image...'; \
-      docker push --all-tags us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2; \
+      docker push --all-tags us-central1-c-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2; \
       echo 'Image pushed successfully.'"
     ]
   - id: DeployNewImageGKE
@@ -43,8 +43,8 @@ steps:
       - |
         echo "Starting Step 3: Updating pod with the latest image..."
         echo "Project ID: ${PROJECT_ID}"
-        kubectl set image deployment/con2-deployment k8s-container2=us-central1-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA}
+        kubectl set image deployment/con2-deployment k8s-container2=us-central1-c-docker.pkg.dev/${PROJECT_ID}/k8-jems/k8s-container2:${SHORT_SHA}
         echo "Image update completed successfully."
     env:
-      - "CLOUDSDK_COMPUTE_REGION=us-central1"
+      - "CLOUDSDK_COMPUTE_REGION=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=k8s"
