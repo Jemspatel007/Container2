@@ -47,4 +47,4 @@ steps:
         echo "Image update completed successfully."
     env:
       - "CLOUDSDK_COMPUTE_REGION=us-central1"
-      - "CLOUDSDK_CONTAINER_CLUSTER=k8s-csci-5409-cluster"
+      - "CLOUDSDK_CONTAINER_CLUSTER=k8s-assignment-testing"
