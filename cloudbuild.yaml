@@ -3,6 +3,7 @@ options:
 
 steps:
 
+
   # Initialize kubectl authenticator
   - id: GKEAuthenticate
     name: "gcr.io/cloud-builders/gcloud"
