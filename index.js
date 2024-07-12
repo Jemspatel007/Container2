@@ -8,7 +8,7 @@ dotenv.config();
 
 app.post("/parser", parseCSV);
 
-console.log("CICD Testing.....");
+console.log("CICD Testing....");
 
 app.listen(2000, () => {
     console.log(`Listening on port ${2000}...!`);
