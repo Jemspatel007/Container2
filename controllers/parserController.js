@@ -1,7 +1,7 @@
 const path = require("path");
 const { isValidCSV } = require("../services/CSVParserService");
 
-const FILE_DIRECTORY = process.env.directory || "../";
+const FILE_DIRECTORY = process.env.FILE_DIRECTORY || "../";
 
 const parseCSV = async (req, res) => {
     const { file, product } = req.body;
