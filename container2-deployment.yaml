@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: k8s-container2
-          image: jems007patel/container2
+          image: us-central1-docker.pkg.dev/cloud-428821/k8-jems/k8s-container2
           ports:
             - containerPort: 2000
           env:
